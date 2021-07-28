@@ -1,0 +1,31 @@
+# eclipse conf files
+.settings
+.classpath
+.project
+
+# idea conf files
+.idea
+*.iml
+*.ipr
+*.iws
+/atlassian-ide-plugin.xml
+
+# building
+target
+build
+tmp
+temp
+dist
+
+#Mac files
+.DS_Store
+
+#Emacs files
+*~
+
+/eclipse-classes
+typescript
+
+# Vagrant
+.vagrant
+Vagrantfile
