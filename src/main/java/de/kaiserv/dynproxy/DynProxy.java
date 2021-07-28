@@ -22,10 +22,6 @@ import java.util.stream.Stream;
 import static java.lang.String.format;
 import static java.util.Collections.list;
 
-/*
-curl -i 'localhost:8081/proxy?_host=api.tvmaze.com:443&_path=search/shows&q=scrubs' -H 'Accept: application/json'
-curl -i 'localhost:8081/proxy?_host=api.openweathermap.org:443&_path=data/2.5/weather&zip=95050' -H 'Accept: application/json'
-*/
 @WebServlet(asyncSupported = true)
 public class DynProxy extends HttpServlet {
 
