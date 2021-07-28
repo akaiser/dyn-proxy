@@ -6,19 +6,23 @@ import org.apache.catalina.startup.Tomcat;
 import org.apache.coyote.http11.Http11Nio2Protocol;
 import org.apache.coyote.http2.Http2Protocol;
 
+import static java.util.Optional.ofNullable;
+
 public class Main {
 
     public static void main(String... args) throws Exception {
+        String port = ofNullable(System.getenv("PORT")).orElse("80");
+
         Connector connector = new Connector(new Http11Nio2Protocol());
         connector.addUpgradeProtocol(new Http2Protocol());
-        connector.setPort(Integer.parseInt(System.getenv("PORT")));
+        connector.setPort(Integer.parseInt(port));
 
         Tomcat tomcat = new Tomcat();
         tomcat.setConnector(connector);
 
-        Context ctx = tomcat.addContext("", System.getProperty("java.io.tmpdir"));
-        Tomcat.addServlet(ctx, DynProxy.class.getSimpleName(), new DynProxy());
-        ctx.addServletMappingDecoded("/proxy", DynProxy.class.getSimpleName());
+        Context context = tomcat.addContext("", System.getProperty("java.io.tmpdir"));
+        Tomcat.addServlet(context, "DynProxy", new DynProxy());
+        context.addServletMappingDecoded("/proxy", "DynProxy");
 
         tomcat.start();
         tomcat.getServer().await();
