@@ -11,11 +11,7 @@ public class Main {
     public static void main(String... args) throws Exception {
         Connector connector = new Connector(new Http11Nio2Protocol());
         connector.addUpgradeProtocol(new Http2Protocol());
-        String port = System.getenv("PORT");
-        System.out.println("###########");
-        System.out.println(port);
-        System.out.println("###########");
-        connector.setPort(Integer.parseInt(port));
+        connector.setPort(Integer.getInteger("PORT"));
 
         Tomcat tomcat = new Tomcat();
         tomcat.setConnector(connector);
