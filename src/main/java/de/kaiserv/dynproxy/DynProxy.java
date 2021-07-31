@@ -13,22 +13,21 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static java.lang.String.format;
-import static java.util.Collections.list;
 
 @WebServlet(asyncSupported = true)
 public class DynProxy extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(DynProxy.class);
 
-    private static final String PROXY_PATTERN = "https://%s/%s"; // TODO add https switch based on provided port
-    private static final Collection<String> PROXY_PATTERN_PARAMS = Arrays.asList("_host", "_path");
+    private static final String
+            _HOST_PARAM = "_host",
+            _PATH_PARAM = "_path";
+
+    private static final Collection<String>
+            PROXY_PATTERN_PARAMS = Arrays.asList(_HOST_PARAM, _PATH_PARAM);
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) {
@@ -42,7 +41,6 @@ public class DynProxy extends HttpServlet {
                 copyRequestHeaders(conn, req);
                 copyResponseHeaders(conn, resp);
                 copyResponse(conn, resp);
-
             } catch (Exception ex) {
                 LOG.error("Some big explosion here...", ex);
             } finally {
@@ -54,38 +52,50 @@ public class DynProxy extends HttpServlet {
         });
     }
 
-    private static String buildProxyUrl(HttpServletRequest req) {
-        StringBuilder sb = new StringBuilder();
-
+     String buildProxyUrl(HttpServletRequest req) {
         Map<String, String> queryParams = Stream.of(req.getQueryString().split("&"))
                 .map(pair -> pair.split("="))
+                .filter(parts -> parts.length == 2)
                 .collect(Collectors.toMap(parts -> parts[0], parts -> parts[1]));
 
-        // url
-        sb.append(format(
-                PROXY_PATTERN,
-                PROXY_PATTERN_PARAMS.stream()
-                        .map(queryParams::get)
-                        .map(value -> value.startsWith("/") ? value.substring(1) : value)
-                        .toArray()
-        ));
-
-        // params
-        queryParams.forEach((param, value) -> {
-            if (!PROXY_PATTERN_PARAMS.contains(param)) {
-                sb.append(sb.lastIndexOf("?") == -1 ? '?' : '&');
-                sb.append(format("%s=%s", param, value));
-            }
-        });
-
-        String proxyUrl = sb.toString();
+        String proxyUrl = buildProtocolAndHost(queryParams) + buildQueryParams(queryParams);
 
         LOG.info("proxy to: {}", proxyUrl);
         return proxyUrl;
     }
 
+    private String buildProtocolAndHost(Map<String, String> queryParams) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("http");
+        String host = queryParams.get(_HOST_PARAM);
+        String[] hostParts = host.split(":");
+        if (hostParts.length == 2) {
+            if ("443".equals(hostParts[1])) {
+                sb.append("s");
+            }
+        }
+        sb.append("://").append(host);
+        Optional.ofNullable(queryParams.get(_PATH_PARAM)).ifPresent(path -> sb.append("/").append(path));
+
+        return sb.toString();
+    }
+
+    private String buildQueryParams(Map<String, String> queryParams) {
+        StringBuilder sb = new StringBuilder();
+
+        queryParams.forEach((param, value) -> {
+            if (!PROXY_PATTERN_PARAMS.contains(param)) {
+                sb.append(sb.lastIndexOf("?") == -1 ? '?' : '&');
+                sb.append(String.format("%s=%s", param, value));
+            }
+        });
+
+        return sb.toString();
+    }
+
     private void copyRequestHeaders(HttpURLConnection conn, HttpServletRequest req) {
-        list(req.getHeaderNames()).forEach(name ->
+        Collections.list(req.getHeaderNames()).forEach(name ->
                 conn.setRequestProperty(name, req.getHeader(name))
         );
     }
