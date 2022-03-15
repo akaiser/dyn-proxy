@@ -4,9 +4,25 @@ Simple http proxy server/impl capable of forwarding requests to dynamic destinat
 
 This example is embedding a Tomcat to expose a proxy servlet.
 
-Can be embedded into Java based webapps to bypass CORS or used as a standalone service to bridge port access limitations for other backend services.
+Can be embedded into Java based webapps to bypass CORS or used as a standalone service to bridge port access limitations
+for other backend services.
 
 ### Usage & Examples
+
+#### start locally
+
+```
+java -jar target/dyn-proxy-1.0.0-SNAPSHOT-jar-with-dependencies.jar
+java -jar -Dproxy_port=8080 target/dyn-proxy-1.0.0-SNAPSHOT-jar-with-dependencies.jar 
+```
+
+#### test locally
+
+```
+curl -i 'localhost:8080/proxy?_host=jsonplaceholder.typicode.com&_path=posts/1' -H 'Accept: application/json'
+```
+
+#### test remote
 
 ```
 curl -i 'dyn-proxy.herokuapp.com/proxy?_host=jsonplaceholder.typicode.com&_path=posts/1' -H 'Accept: application/json'

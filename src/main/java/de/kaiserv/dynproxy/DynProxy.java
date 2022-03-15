@@ -1,7 +1,6 @@
 package de.kaiserv.dynproxy;
 
 import jakarta.servlet.AsyncContext;
-import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Arrays;
@@ -85,9 +85,9 @@ public class DynProxy extends HttpServlet {
 
                     String error = ex.toString().concat("\n").concat(stackTrace);
 
-                    try (InputStream errorIS = new ByteArrayInputStream(error.getBytes())) {
+                    try (InputStream errorIs = new ByteArrayInputStream(error.getBytes())) {
                         resp.setContentType("text/plain");
-                        copyInputStream(errorIS, resp);
+                        copyInputStream(errorIs, resp);
                     }
                 }
             }
@@ -96,7 +96,7 @@ public class DynProxy extends HttpServlet {
 
     private void copyInputStream(InputStream is, HttpServletResponse resp) throws Exception {
         if (is != null) {
-            ServletOutputStream out = resp.getOutputStream();
+            OutputStream out = resp.getOutputStream();
             int n;
             byte[] buffer = new byte[4096];
             while (-1 != (n = is.read(buffer))) out.write(buffer, 0, n);
