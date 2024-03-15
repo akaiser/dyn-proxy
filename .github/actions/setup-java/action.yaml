@@ -1,0 +1,11 @@
+name: Setup Java
+description: "What the name says..."
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+        cache: 'maven'
