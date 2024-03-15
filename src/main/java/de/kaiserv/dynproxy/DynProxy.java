@@ -12,7 +12,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.URI;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -30,7 +30,7 @@ public class DynProxy extends HttpServlet {
                 String proxyUrl = new ProxyUrlBuilder(req.getQueryString()).build();
                 LOG.info("proxy to: {}", proxyUrl);
 
-                conn = (HttpURLConnection) new URL(proxyUrl).openConnection();
+                conn = (HttpURLConnection) new URI(proxyUrl).toURL().openConnection();
                 conn.setRequestMethod(req.getMethod());
 
                 copyRequestHeaders(conn, req);
@@ -55,7 +55,7 @@ public class DynProxy extends HttpServlet {
 
     private void copyResponseHeaders(HttpURLConnection conn, HttpServletResponse resp) {
         conn.getHeaderFields().forEach((field, values) -> {
-            String value = values.get(0);
+            String value = values.getFirst();
             if (!"chunked".equals(value)) {
                 resp.setHeader(field, value);
             }

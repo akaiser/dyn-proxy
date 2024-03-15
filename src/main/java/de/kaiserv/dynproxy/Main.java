@@ -22,6 +22,20 @@ public class Main {
         Tomcat.addServlet(context, "DynProxy", new DynProxy());
         context.addServletMappingDecoded("/proxy", "DynProxy");
 
+//        CorsFilter corsFilter = new CorsFilter();
+//
+//        FilterDef filterDef = new FilterDef();
+//        filterDef.setFilterName(corsFilter.getClass().getName());
+//        filterDef.setFilter(corsFilter);
+//        filterDef.setAsyncSupported("true");
+//        context.addFilterDef(filterDef);
+//
+//        FilterMap filterMap = new FilterMap();
+//        filterMap.setFilterName(corsFilter.getClass().getName());
+//        filterMap.addURLPattern("/*");
+//        filterMap.setDispatcher("REQUEST,FORWARD,INCLUDE,ASYNC");
+//        context.addFilterMap(filterMap);
+
         tomcat.start();
         tomcat.getServer().await();
     }
