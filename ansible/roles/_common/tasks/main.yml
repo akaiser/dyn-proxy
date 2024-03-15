@@ -1,0 +1,17 @@
+---
+
+- name: Create bin dir for apps
+  ansible.builtin.file:
+    path: '{{ system.dev.bin_dir }}'
+    state: directory
+
+- name: Create log dir for apps
+  ansible.builtin.file:
+    path: '{{ system.dev.log_dir }}'
+    state: directory
+
+- name: Perform dist-upgrade
+  ansible.builtin.apt:
+    upgrade: dist
+    update_cache: yes
+  notify: Restart server

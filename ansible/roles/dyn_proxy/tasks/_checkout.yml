@@ -1,0 +1,7 @@
+---
+
+- name: Checkout
+  ansible.builtin.git:
+    repo: 'https://github.com/akaiser/dyn-proxy.git'
+    dest: '{{ dyn_proxy.app.dir }}'
+    version: main

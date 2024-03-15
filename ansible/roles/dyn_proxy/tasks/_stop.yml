@@ -1,0 +1,12 @@
+---
+
+- name: Stop
+  ansible.builtin.shell: 'pkill -f {{ dyn_proxy.app.jar }}'
+  failed_when: false
+
+- name: Verify shutdown
+  ansible.builtin.wait_for:
+    host: 127.0.0.1
+    port: '{{ dyn_proxy.app.port }}'
+    delay: 3
+    state: drained

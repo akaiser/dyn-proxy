@@ -1,0 +1,11 @@
+---
+
+- name: Package
+  ansible.builtin.shell:
+    chdir: '{{ dyn_proxy.app.dir }}'
+    cmd: ./mvnw package
+
+- name: Rename jar file
+  ansible.builtin.shell:
+    chdir: '{{ dyn_proxy.app.dir }}/target'
+    cmd: 'mv dyn-proxy-*-with-dependencies.jar {{ dyn_proxy.app.jar }}'

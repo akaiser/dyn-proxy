@@ -1,0 +1,8 @@
+---
+
+- name: Setup and deploy DynProxy
+  hosts: all
+  roles:
+    - _common
+    - java
+    - dyn_proxy

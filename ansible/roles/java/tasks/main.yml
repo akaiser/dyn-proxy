@@ -1,0 +1,6 @@
+---
+
+- name: Install
+  ansible.builtin.apt:
+    name: '{{ system.apt_name.jdk }}'
+    state: present

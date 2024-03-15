@@ -1,0 +1,12 @@
+---
+
+- name: Run
+  raw: 'cd {{ system.dev.bin_dir }}; nohup java -jar -Dproxy_port={{ dyn_proxy.app.port }} {{ dyn_proxy.app.jar }} >> {{ system.dev.log_dir }}/dyn_proxy.log & sleep 1'
+
+- name: Verify ramp up
+  wait_for:
+    host: 127.0.0.1
+    port: '{{ dyn_proxy.app.port }}'
+    delay: 3
+    timeout: 20
+    connect_timeout: 2
