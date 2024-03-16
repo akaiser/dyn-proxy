@@ -17,7 +17,7 @@ jobs:
             ls -a
           host: 2ohm.de
           user: root
-          key: ${{ secrets.SECRET_SSH_KEY}}
+          key: ${{ secrets.ID_RSA_2OHM}}
 #      - name: bla
 #        uses: appleboy/ssh-action@master
 #        with:
