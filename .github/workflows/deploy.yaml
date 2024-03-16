@@ -14,7 +14,7 @@ jobs:
         with:
           host: 2ohm.de
           username: root
-          key: ${{ secrets.SECRET_SSH_KEY }}
+          key: ${{ secrets.SUPER_NEW }}
           port: 22
           script: whoami
 
