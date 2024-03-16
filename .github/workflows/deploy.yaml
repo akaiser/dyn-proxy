@@ -27,3 +27,4 @@ jobs:
             --user root
             --inventory ansible/hosts
             --tags deploy
+            -vvvv
