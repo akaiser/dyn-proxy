@@ -13,9 +13,8 @@ jobs:
         uses: dawidd6/action-ansible-playbook@v2
         with:
           playbook: ansible/dyn_proxy.yml
-          key: ${{ secrets.ID_RSA_2OHM }}
+          key: ${{ secrets.SECRET_SSH_KEY }}
           options: |
             --user root
             --inventory ansible/hosts
             --tags deploy
-            --ssh-extra-args "-o StrictHostKeyChecking=no"
