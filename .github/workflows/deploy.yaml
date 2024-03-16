@@ -14,7 +14,7 @@ jobs:
         with:
           playbook: ansible/dyn_proxy.yml
           inventory: ansible/hosts
-          private_key: ${{ secrets.ID_RSA_2OHM }}
+          private_key: ${{ secrets.SECRET_SSH_KEY }}
         env:
           ANSIBLE_HOST_KEY_CHECKING: 'false'
 #      - name: Run playbook
