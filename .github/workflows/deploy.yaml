@@ -5,15 +5,15 @@ on:
   workflow_dispatch:
 
 jobs:
-  deply:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Run Ansible playbook
+      - name: Run playbook
         uses: dawidd6/action-ansible-playbook@v2
         with:
-          directory: ./ansible
-          playbook: dyn_proxy.yml
+          directory: ./
+          playbook: ansible/dyn_proxy.yml
           key: ${{ secrets.ID_RSA_2OHM }}
           options: |
             --tags deploy
