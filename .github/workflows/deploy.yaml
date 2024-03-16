@@ -12,9 +12,8 @@ jobs:
       - name: Run Ansible playbook
         uses: dawidd6/action-ansible-playbook@v2
         with:
-          directory: ./
-          playbook: ansible/dyn_proxy.yml
+          directory: ./ansible
+          playbook: dyn_proxy.yml
           key: ${{ secrets.ID_RSA_2OHM }}
           options: |
-            --inventory ./ansible/hosts
             --tags deploy
