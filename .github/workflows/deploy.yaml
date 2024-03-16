@@ -20,3 +20,4 @@ jobs:
             --tags deploy
             --ssh-extra-args "-o StrictHostKeyChecking=no"
             --verbose
+            -vvv
