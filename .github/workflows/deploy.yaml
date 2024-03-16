@@ -16,6 +16,7 @@ jobs:
           playbook: ansible/dyn_proxy.yml
           key: ${{ secrets.ID_RSA_2OHM }}
           options: |
+            --user root
             --inventory ansible/hosts
             --tags deploy
             --ssh-extra-args "-o StrictHostKeyChecking=no"
