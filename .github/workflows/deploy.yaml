@@ -9,7 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: echo ${{ secrets.ID_RSA_2OHM }}
       - name: Run playbook
         uses: dawidd6/action-ansible-playbook@v2
         with:
