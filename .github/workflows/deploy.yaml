@@ -20,5 +20,3 @@ jobs:
             --inventory ansible/hosts
             --tags deploy
             --ssh-extra-args "-o StrictHostKeyChecking=no"
-            --verbose
-            -vvv
