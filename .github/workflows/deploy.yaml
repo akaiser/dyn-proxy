@@ -9,23 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: ls -a via ssh
-        uses: fifsky/ssh-action@master
+      - name: bla
+        uses: appleboy/ssh-action@master
         with:
-          command: |
-            cd /tmp
-            ls -a
           host: 2ohm.de
-          user: root
-          key: ${{ secrets.ID_RSA_2OHM}}
-#      - name: bla
-#        uses: appleboy/ssh-action@master
-#        with:
-#          host: 2ohm.de
-#          username: root
-#          key: ${{ secrets.SECRET_SSH_KEY }}
-#          port: 22
-#          script: whoami
+          username: root
+          key: ${{ secrets.SECRET_SSH_KEY }}
+          port: 22
+          script: whoami
 
 #      - name: Run playbook
 #        uses: arillso/action.playbook@master
