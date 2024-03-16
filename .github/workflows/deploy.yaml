@@ -1,4 +1,4 @@
-name: Package
+name: Deploy
 on:
   push:
     branches: [ main]
@@ -8,6 +8,7 @@ jobs:
   deply:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Run Ansible playbook
         uses: dawidd6/action-ansible-playbook@v2
         with:
