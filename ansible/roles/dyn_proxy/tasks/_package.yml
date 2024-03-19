@@ -1,7 +1,7 @@
 ---
 
 - name: Package
-  ansible.builtin.shell:
+  ansible.builtin.command:
     chdir: '{{ dyn_proxy.app.dir }}'
     cmd: ./mvnw package
 

@@ -4,14 +4,16 @@
   ansible.builtin.file:
     path: '{{ system.dev.bin_dir }}'
     state: directory
+    mode: '0755'
 
 - name: Create log dir for apps
   ansible.builtin.file:
     path: '{{ system.dev.log_dir }}'
     state: directory
+    mode: '0755'
 
 - name: Perform dist-upgrade
   ansible.builtin.apt:
     upgrade: dist
-    update_cache: yes
+    update_cache: true
   notify: Restart server

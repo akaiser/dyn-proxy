@@ -4,3 +4,4 @@
   ansible.builtin.file:
     path: '{{ dyn_proxy.app.dir }}'
     state: directory
+    mode: '0755'

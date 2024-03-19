@@ -1,2 +1,2 @@
 [servers]
-2ohm ansible_host=2ohm.de
+2ohm.de ansible_host=85.215.76.182
