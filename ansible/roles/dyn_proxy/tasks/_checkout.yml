@@ -5,3 +5,4 @@
     repo: 'https://github.com/akaiser/dyn-proxy.git'
     dest: '{{ dyn_proxy.app.dir }}'
     version: main
+    depth: 1
