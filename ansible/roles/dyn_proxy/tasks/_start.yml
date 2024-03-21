@@ -1,13 +1,14 @@
 ---
 
-- name: Stop app
+- name: Start app
   ansible.builtin.systemd_service:
     name: '{{ dyn_proxy.service_name }}'
-    state: stopped
+    state: started
 
-- name: Verify shutdown
+- name: Verify ramp up
   ansible.builtin.wait_for:
     host: 127.0.0.1
     port: '{{ dyn_proxy.app.port }}'
     delay: 3
-    state: drained
+    timeout: 20
+    connect_timeout: 2

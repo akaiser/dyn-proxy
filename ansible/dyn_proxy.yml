@@ -4,5 +4,5 @@
   hosts: all
   roles:
     - _common
-    - java
+    - _java
     - dyn_proxy

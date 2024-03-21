@@ -9,6 +9,7 @@ system:
     log_dir: /opt/dev/_log
 
 dyn_proxy:
+  service_name: dyn-proxy
   app:
     port: 6220
     path:

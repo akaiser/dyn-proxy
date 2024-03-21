@@ -9,5 +9,5 @@
   tags: deploy
 - ansible.builtin.import_tasks: _copy.yml
   tags: deploy
-- ansible.builtin.import_tasks: _run.yml
+- ansible.builtin.import_tasks: _start.yml
   tags: deploy
