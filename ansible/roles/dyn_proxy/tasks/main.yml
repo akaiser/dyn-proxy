@@ -1,13 +1,32 @@
 ---
 
-- ansible.builtin.import_tasks: _setup.yml
-- ansible.builtin.import_tasks: _checkout.yml
-  tags: deploy
-- ansible.builtin.import_tasks: _package.yml
-  tags: deploy
-- ansible.builtin.import_tasks: _stop.yml
-  tags: deploy
-- ansible.builtin.import_tasks: _copy.yml
-  tags: deploy
-- ansible.builtin.import_tasks: _start.yml
+- block:
+    - ansible.builtin.import_tasks: _setup.yml
+    - ansible.builtin.import_tasks: _checkout.yml
+      tags: deploy
+    - ansible.builtin.import_tasks: _package.yml
+      tags: deploy
+    - ansible.builtin.import_tasks: _stop.yml
+      tags: deploy
+    - ansible.builtin.import_tasks: _copy.yml
+      tags: deploy
+    - ansible.builtin.import_tasks: _start.yml
+      tags: deploy
+  rescue:
+    - name: Set block failed flag
+      ansible.builtin.set_fact:
+        _tasks_failed: true
+  always:
+    - name: Send success email
+      ansible.builtin.include_tasks: roles/_common/tasks/_email.yml
+      vars:
+        _deploy_app: 'DynProxy'
+        _deploy_status: 'SUCCESS'
+      when: _tasks_failed is undefined
+    - name: Send failure email
+      ansible.builtin.include_tasks: roles/_common/tasks/_email.yml
+      vars:
+        _deploy_app: 'DynProxy'
+        _deploy_status: 'FAILURE'
+      when: _tasks_failed is defined
   tags: deploy
