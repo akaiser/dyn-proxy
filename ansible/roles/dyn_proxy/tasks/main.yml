@@ -17,13 +17,13 @@
       ansible.builtin.set_fact:
         _tasks_failed: true
   always:
-    - name: Send success email
+    - name: Include success email tasks
       ansible.builtin.include_tasks: roles/_common/tasks/_email.yml
       vars:
         _deploy_app: 'DynProxy'
         _deploy_status: 'SUCCESS'
       when: _tasks_failed is undefined
-    - name: Send failure email
+    - name: Include failure email tasks
       ansible.builtin.include_tasks: roles/_common/tasks/_email.yml
       vars:
         _deploy_app: 'DynProxy'

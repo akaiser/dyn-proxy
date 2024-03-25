@@ -1,6 +1,9 @@
 ---
+- name: Include secrets
+  include_vars: email-secrets.yml
 
-- local_action:
+- name: Send email
+  local_action:
     module: community.general.mail
     host: '{{ email_host }}'
     port: '{{ email_port }}'
