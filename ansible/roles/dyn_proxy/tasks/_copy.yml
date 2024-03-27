@@ -1,8 +1,0 @@
----
-
-- name: Copy package to bin dir
-  ansible.builtin.copy:
-    src: '{{ dyn_proxy.app.dir }}/target/{{ dyn_proxy.app.jar }}'
-    dest: '{{ system.dev.bin_dir }}'
-    remote_src: true
-    mode: '0755'

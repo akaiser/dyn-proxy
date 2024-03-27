@@ -1,0 +1,25 @@
+---
+
+- block:
+    - ansible.builtin.import_tasks: deploy/checkout.yml
+    - ansible.builtin.import_tasks: deploy/package.yml
+    - ansible.builtin.import_tasks: deploy/stop.yml
+    - ansible.builtin.import_tasks: deploy/copy.yml
+    - ansible.builtin.import_tasks: deploy/start.yml
+  rescue:
+    - name: Set _tasks_failed flag
+      ansible.builtin.set_fact:
+        _tasks_failed: true
+  always:
+    - name: Include success email tasks
+      ansible.builtin.include_tasks: roles/_common/tasks/_email.yml
+      vars:
+        _deploy_app: 'DynProxy'
+        _deploy_status: 'SUCCESS'
+      when: _tasks_failed is undefined
+    - name: Include failure email tasks
+      ansible.builtin.include_tasks: roles/_common/tasks/_email.yml
+      vars:
+        _deploy_app: 'DynProxy'
+        _deploy_status: 'FAILURE'
+      when: _tasks_failed is defined

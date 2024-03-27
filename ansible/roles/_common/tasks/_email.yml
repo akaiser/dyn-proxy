@@ -10,5 +10,5 @@
     username: '{{ email_username }}'
     password: '{{ email_password }}'
     to: '{{ email_to }}'
-    subject: 'Deploy {{ _deploy_app }}: {{ _deploy_status }}'
+    subject: '{{ _deploy_app }}: deploy {{ _deploy_status }}'
     body: TBD
