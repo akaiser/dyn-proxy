@@ -1,6 +1,20 @@
 ---
 
+- name: Get Java version
+  ansible.builtin.command: java --version
+  register: _java_version
+  changed_when: false
+
+- name: Print Java version
+  ansible.builtin.debug:
+    var: _java_version.stdout_lines
+
 - name: Package
   ansible.builtin.command:
     chdir: '{{ dyn_proxy.app.dir }}'
     cmd: ./mvnw package
+  register: _package_output
+
+- name: Print package output
+  ansible.builtin.debug:
+    var: _package_output.stdout_lines
