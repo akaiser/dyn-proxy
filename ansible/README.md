@@ -27,11 +27,3 @@ flowchart TD
     B[dyn_proxy: 6220 \n\n src: /opt/dev/dyn_proxy]
     A -->|/proxy| B
 ```
-
-## MISC
-
-Shall we?
-
-https://laravel-news.com/deploy-your-php-app-with-ansible-and-github-actions
-
-https://networkbrouhaha.com/2020/05/ansible-with-github-actions/
