@@ -11,11 +11,13 @@ jobs:
       - uses: actions/checkout@v4
       - name: Setup SSH
         run: |
-          mkdir -p ~/.ssh
+          mkdir ~/.ssh
           echo "${{ secrets.ID_RSA_2OHM }}" > ~/.ssh/id_rsa_2ohm
           chmod 600 ~/.ssh/id_rsa_2ohm
       - name: Setup Vaults
-        run: echo "${{ secrets.VAULTS_MAIN }}" > ansible/.vaults-main
+        run: |
+          mkdir ~/.vaults
+          echo "${{ secrets.VAULTS_MAIN }}" > ~/.vaults/main
       - name: Run playbook
         working-directory: ./ansible
         run: ansible-playbook dyn_proxy.yml --tags deploy --vault-password-file ./.vaults-main
