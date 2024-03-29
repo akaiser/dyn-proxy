@@ -13,6 +13,7 @@ jobs:
         run: |
           mkdir ~/.ssh
           echo "${{ secrets.ID_RSA_2OHM }}" > ~/.ssh/id_rsa_2ohm
+          chmod 600 ~/.ssh/id_rsa_2ohm
       - name: Setup Vaults
         run: |
           mkdir ~/.vaults
