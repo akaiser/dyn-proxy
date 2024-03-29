@@ -14,7 +14,7 @@ jobs:
         with:
           host: 2ohm.de
           username: root
-          key: ${{ secrets.SUPER_NEW }}
+          key: ${{ secrets.ID_RSA }}
           port: 22
           script: whoami
 
@@ -23,7 +23,7 @@ jobs:
 #        with:
 #          playbook: ansible/dyn_proxy.yml
 #          inventory: ansible/hosts
-#          private_key: ${{ secrets.SECRET_SSH_KEY }}
+#          private_key: ${{ secrets.SSH_KEY }}
 #        env:
 #          ANSIBLE_HOST_KEY_CHECKING: 'false'
 #      - name: Run playbook
