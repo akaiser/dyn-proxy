@@ -9,28 +9,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: bla
-        uses: appleboy/ssh-action@master
-        with:
-          host: 2ohm.de
-          username: root
-          key: ${{ secrets.ID_RSA }}
-          port: 22
-          script: whoami
-
-#      - name: Run playbook
-#        uses: arillso/action.playbook@master
+#      - name: bla
+#        uses: appleboy/ssh-action@master
 #        with:
-#          playbook: ansible/dyn_proxy.yml
-#          inventory: ansible/hosts
-#          private_key: ${{ secrets.SSH_KEY }}
-#        env:
-#          ANSIBLE_HOST_KEY_CHECKING: 'false'
+#          host: 2ohm.de
+#          username: root
+#          key: ${{ secrets.ID_RSA }}
+#          port: 22
+#          script: whoami
+      - name: Run playbook
+        uses: arillso/action.playbook@master
+        with:
+          playbook: ansible/dyn_proxy.yml
+          inventory: ansible/hosts
+          private_key: ${{ secrets.ID_RSA }}
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: 'false'
 #      - name: Run playbook
 #        uses: dawidd6/action-ansible-playbook@v2
 #        with:
 #          playbook: ansible/dyn_proxy.yml
-#          key: ${{ secrets.ID_RSA_2OHM }}
+#          key: ${{ secrets.ID_RSA }}
 #          options: |
 #            --ssh-extra-args "-o StrictHostKeyChecking=no"
 #            --user root
