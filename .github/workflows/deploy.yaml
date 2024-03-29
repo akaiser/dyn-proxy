@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup-ansible
+      #- uses: ./.github/actions/setup-ansible
       - run: ansible-playbook --version
       # TODO(albert): create password file and pass via --vault-password-file my_secret_password.txt
       # https://github.com/EcrituresNumeriques/stylo/blob/dc722a36651c9d28ec3c937e9883a01aa81b93ff/.github/workflows/deploy.yml#L49
