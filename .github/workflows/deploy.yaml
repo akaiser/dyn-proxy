@@ -8,7 +8,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4ø
+      - uses: actions/checkout@v4
       - name: Setup SSH
         run: |
           mkdir ~/.ssh
