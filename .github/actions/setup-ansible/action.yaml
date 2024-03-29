@@ -1,9 +1,0 @@
-name: Setup Ansible
-description: "What the name says..."
-
-runs:
-  using: composite
-  steps:
-    - name: Install Ansible
-      shell: bash
-      run: sudo apt update && sudo add-apt-repository -y --update ppa:ansible/ansible && sudo apt dist-upgrade -y
