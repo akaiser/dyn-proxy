@@ -17,22 +17,21 @@ jobs:
 #          key: ${{ secrets.ID_RSA }}
 #          port: 22
 #          script: whoami
-      - name: Run playbook
-        uses: arillso/action.playbook@master
-        with:
-          playbook: ansible/dyn_proxy.yml
-          inventory: ansible/hosts
-          private_key: ${{ secrets.ID_RSA }}
-        env:
-          ANSIBLE_HOST_KEY_CHECKING: 'false'
 #      - name: Run playbook
-#        uses: dawidd6/action-ansible-playbook@v2
+#        uses: arillso/action.playbook@master
 #        with:
 #          playbook: ansible/dyn_proxy.yml
-#          key: ${{ secrets.ID_RSA }}
-#          options: |
-#            --ssh-extra-args "-o StrictHostKeyChecking=no"
-#            --user root
-#            --inventory ansible/hosts
-#            --tags deploy
-#            -vvvv
+#          inventory: ansible/hosts
+#          private_key: ${{ secrets.ID_RSA }}
+#        env:
+#          ANSIBLE_HOST_KEY_CHECKING: 'false'
+      - name: Run playbook
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          playbook: ansible/dyn_proxy.yml
+          key: ${{ secrets.ID_RSA }}
+          options: |
+            --ssh-extra-args "-o StrictHostKeyChecking=no"
+            --user root
+            --inventory ansible/hosts
+            --tags deploy
