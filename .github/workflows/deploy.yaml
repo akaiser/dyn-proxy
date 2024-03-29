@@ -8,32 +8,15 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4ø
       - name: Setup SSH
         run: |
-          mkdir -p ~/.ssh
+          mkdir ~/.ssh
           echo "${{ secrets.ID_RSA_2OHM }}" > ~/.ssh/id_rsa_2ohm
-          chmod 600 ~/.ssh/id_rsa_2ohm
       - name: Setup Vaults
         run: |
-          mkdir -p ~/.vaults
+          mkdir ~/.vaults
           echo "${{ secrets.VAULTS_MAIN }}" > ~/.vaults/main
       - name: Run playbook
         working-directory: ./ansible
-        run: ansible-playbook dyn_proxy.yml --tags deploy --ssh-extra-args "-o StrictHostKeyChecking=no" -vvv
-      # TODO(albert): create password file and pass via --vault-password-file my_secret_password.txt
-      # https://github.com/EcrituresNumeriques/stylo/blob/dc722a36651c9d28ec3c937e9883a01aa81b93ff/.github/workflows/deploy.yml#L49
-      # https://github.com/ExtDev0327/polygon-edge/blob/709a1d242e73361808d1607eed8f274266117044/.github/workflows/deploy.nightly.devnet.yml#L197
-      # https://github.com/OpenImaging/miqa/blob/07c4891a38964b84ab2563ca71db9b55e582ab16/.github/workflows/ansible.yml#L24
-      # https://github.com/pauldotyu/azure-virtual-desktop-terraform/blob/c49aaf744dab8fac726d22288bfc5b7150b9db67/.github/workflows/terraform.yml#L83
-      # https://github.com/icatproject/icat.client/blob/301bb63088d5872af2f8820a7ec5f21b4a71b578/.github/workflows/ci-build.yml#L53
-#      - name: Run playbook
-#        uses: dawidd6/action-ansible-playbook@v2
-#        with:
-#          playbook: ansible/dyn_proxy.yml
-#          key: ${{ secrets.ID_RSA_2OHM }}
-#          options: |
-#            --ssh-extra-args "-o StrictHostKeyChecking=no"
-#            --user root
-#            --inventory ansible/hosts
-#            --tags deploy
+        run: ansible-playbook dyn_proxy.yml --tags deploy --ssh-extra-args "-o StrictHostKeyChecking=no"
