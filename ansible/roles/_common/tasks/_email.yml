@@ -5,10 +5,11 @@
 - name: Send email
   local_action:
     module: community.general.mail
+    subtype: html
     host: '{{ email_host }}'
     port: '{{ email_port }}'
     username: '{{ email_username }}'
     password: '{{ email_password }}'
     to: '{{ email_to }}'
     subject: '{{ _deploy_app }}: deploy {{ _deploy_status }}'
-    body: TBD
+    body: '{{ _deploy_email_body }}'

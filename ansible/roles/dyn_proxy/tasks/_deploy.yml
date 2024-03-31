@@ -9,17 +9,15 @@
   rescue:
     - name: Set _tasks_failed flag
       ansible.builtin.set_fact:
-        _tasks_failed: true
+        _task_failed_message: '
+          Task "{{ ansible_failed_task.name }}" failed with:
+          <p style="color:red">{{ ansible_failed_result }}</p>'
   always:
-    - name: Include success email tasks
+    - name: Include email task
       ansible.builtin.include_tasks: roles/_common/tasks/_email.yml
       vars:
         _deploy_app: 'DynProxy'
-        _deploy_status: 'SUCCESS'
-      when: _tasks_failed is undefined
-    - name: Include failure email tasks
-      ansible.builtin.include_tasks: roles/_common/tasks/_email.yml
-      vars:
-        _deploy_app: 'DynProxy'
-        _deploy_status: 'FAILURE'
-      when: _tasks_failed is defined
+        _deploy_status:
+          '{{ "FAILURE" if _task_failed_message is defined else "SUCCESS" }}'
+        _deploy_email_body:
+          '{{ _task_failed_message if _task_failed_message is defined else "OK!" }}'
