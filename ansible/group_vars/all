@@ -1,4 +1,6 @@
 ---
+local:
+  log_file: ./ansible.log
 
 system:
   apt_name:

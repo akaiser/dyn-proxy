@@ -19,5 +19,3 @@
         _deploy_app: 'DynProxy'
         _deploy_status:
           '{{ "FAILURE" if _task_failed_message is defined else "SUCCESS" }}'
-        _deploy_email_body:
-          '{{ _task_failed_message if _task_failed_message is defined else "OK!" }}'

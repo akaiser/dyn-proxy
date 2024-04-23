@@ -4,4 +4,3 @@
   ansible.builtin.shell:
     chdir: '{{ dyn_proxy.app.dir }}/target'
     cmd: 'cp dyn-proxy-*-with-dependencies.jar {{ system.dev.bin_dir }}/{{ dyn_proxy.app.jar }}'
-

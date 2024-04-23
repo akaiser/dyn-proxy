@@ -1,5 +1,11 @@
 ---
 
+- name: Clear local log file
+  ansible.builtin.command: 'truncate -s0 {{ local.log_file }}'
+  delegate_to: 127.0.0.1
+  changed_when: false
+  tags: always
+
 - name: Create bin dir for apps
   ansible.builtin.file:
     path: '{{ system.dev.bin_dir }}'
