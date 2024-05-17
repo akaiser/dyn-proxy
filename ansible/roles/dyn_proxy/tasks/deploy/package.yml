@@ -9,12 +9,23 @@
   ansible.builtin.debug:
     var: _java_version.stdout_lines
 
+- name: Get Maven version
+  ansible.builtin.command:
+    chdir: '{{ dyn_proxy.app.dir }}'
+    cmd: ./mvnw --version
+  register: _maven_version
+  changed_when: false
+
+- name: Print Maven version
+  ansible.builtin.debug:
+    var: _maven_version.stdout_lines
+
 - name: Package
   ansible.builtin.command:
     chdir: '{{ dyn_proxy.app.dir }}'
     cmd: ./mvnw package
   register: _package_output
 
-- name: Print package output
+- name: Package output
   ansible.builtin.debug:
     var: _package_output.stdout_lines
