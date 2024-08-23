@@ -1,2 +1,5 @@
 [servers]
 2ohm.de ansible_host=85.215.76.182
+
+[servers:vars]
+ansible_python_interpreter=/usr/bin/python3
