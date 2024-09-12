@@ -5,7 +5,6 @@ local:
 system:
   apt_name:
     jdk: openjdk-21-jdk
-    maven: maven
   dev:
     bin_dir: /opt/dev/_bin
     log_dir: /opt/dev/_log
@@ -14,7 +13,5 @@ dyn_proxy:
   service_name: dyn-proxy
   app:
     port: 6220
-    path:
-      proxy: /proxy
     jar: dyn_proxy.jar
     dir: /opt/dev/dyn_proxy

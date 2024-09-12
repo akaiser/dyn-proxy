@@ -19,5 +19,5 @@ jobs:
           mkdir ~/.vaults
           echo "${{ secrets.VAULTS_MAIN }}" > ~/.vaults/main
       - name: Run playbook
-        working-directory: ./ansible
+        working-directory: ./.ansible
         run: ansible-playbook dyn_proxy.yml --tags deploy --ssh-extra-args "-o StrictHostKeyChecking=no"
