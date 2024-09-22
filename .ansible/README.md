@@ -1,3 +1,16 @@
+## Setup
+
+This repository is using ansible roles from the [Ansible Rolorama](https://github.com/akaiser/ansible-rolorama) repository.
+
+```shell
+# Clone the ansible-rolorama repository at the same directory level as this repository.
+git clone https://github.com/akaiser/ansible-rolorama.git
+
+# Creating the symlink is only required when introducing new roles.
+cd dyn-proxy/.ansible/roles
+ln -s ../../../ansible-rolorama/systemd_unit/java_service __java_service
+```
+
 ## General use:
 
 ```shell
