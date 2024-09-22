@@ -2,6 +2,7 @@
 
 dependencies:
   - role: __java_service
+    tags: systemd_service
     vars:
       java_service_name: '{{ dyn_proxy.service_name }}'
       java_service_description: DynProxy as a service
