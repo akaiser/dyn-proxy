@@ -13,8 +13,6 @@ jobs:
           repository: akaiser/ansible-rolorama
           path: ansible-rolorama
       - uses: actions/checkout@v4
-        with:
-          path: dyn-proxy
       - name: Setup SSH
         run: |
           mkdir ~/.ssh
@@ -25,5 +23,5 @@ jobs:
           mkdir ~/.vaults
           echo "${{ secrets.VAULTS_MAIN }}" > ~/.vaults/main
       - name: Run playbook
-        working-directory: ./dyn-proxy/.ansible
+        working-directory: ./.ansible
         run: ansible-playbook dyn_proxy.yml --tags deploy --ssh-extra-args "-o StrictHostKeyChecking=no"
