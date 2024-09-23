@@ -7,7 +7,7 @@
     <packaging>jar</packaging>
 
     <properties>
-        <tomcat.version>10.1.29</tomcat.version>
+        <tomcat.version>10.1.30</tomcat.version>
         <logback.version>1.5.8</logback.version>
         <junit.version>4.13.2</junit.version>
 
