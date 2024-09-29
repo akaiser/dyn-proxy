@@ -2,7 +2,7 @@
 
 - name: Checkout
   ansible.builtin.git:
-    repo: 'https://github.com/akaiser/dyn-proxy.git'
+    repo: 'https://github.com/{{ dyn_proxy.github_repo }}'
     dest: '{{ dyn_proxy.app.dir }}'
     version: main
     depth: 1

@@ -10,6 +10,7 @@ system:
     log_dir: /opt/dev/_log
 
 dyn_proxy:
+  github_repo: akaiser/dyn-proxy.git
   service_name: dyn-proxy
   app:
     port: 6220
