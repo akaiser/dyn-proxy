@@ -4,7 +4,7 @@ dependencies:
   - role: __java_service
     tags: systemd_service
     vars:
-      java_service_name: '{{ dyn_proxy.service_name }}'
-      java_service_description: DynProxy as a service
-      java_service_exec_args: '-jar -Dproxy_port={{ dyn_proxy.app.port }} {{ system.dev.bin_dir }}/{{ dyn_proxy.app.jar }}'
-      java_service_log_file: '{{ system.dev.log_dir }}/dyn_proxy.log'
+      __java_service_name: '{{ dyn_proxy.service_name }}'
+      __java_service_description: DynProxy as a service
+      __java_service_exec_args: '-jar -Dproxy_port={{ dyn_proxy.app.port }} {{ system.dev.bin_dir }}/{{ dyn_proxy.app.jar }}'
+      __java_service_log_file: '{{ system.dev.log_dir }}/dyn_proxy.log'
