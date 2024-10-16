@@ -17,7 +17,7 @@ java -jar -Dproxy_port=8080 target/dyn-proxy-1.0.0-SNAPSHOT-jar-with-dependencie
 ### Test locally
 
 ```
-curl -i 'localhost:8080/proxy?_host=jsonplaceholder.typicode.com&_path=posts/1' -H 'Accept: application/json'
+curl -i 'localhost:80/proxy?_host=jsonplaceholder.typicode.com&_path=posts/1' -H 'Accept: application/json'
 ```
 
 ### Test remote
