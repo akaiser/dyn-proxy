@@ -20,6 +20,11 @@
   ansible.builtin.debug:
     var: _maven_version.stdout_lines
 
+- name: Clean
+  ansible.builtin.command:
+    chdir: '{{ dyn_proxy.app.dir }}'
+    cmd: ./mvnw clean
+
 - name: Package
   ansible.builtin.command:
     chdir: '{{ dyn_proxy.app.dir }}'
