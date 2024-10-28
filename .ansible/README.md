@@ -37,6 +37,6 @@ ansible-playbook dyn_proxy.yml --tags deploy --check
 flowchart TD
     2ohm.de --> A
     A{Apache: 80/443}
-    B[dyn_proxy: 6220 \n\n src: /opt/dev/dyn_proxy]
+    B[dyn_proxy: 6220<br><br>src: /opt/dev/dyn_proxy]
     A -->|/proxy| B
 ```
