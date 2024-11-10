@@ -1,6 +1,6 @@
 ---
 - name: Include secrets
-  include_vars: email-secrets.yml
+  ansible.builtin.include_vars: email-secrets.yml
 
 - name: Send email
   community.general.mail:
