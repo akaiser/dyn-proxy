@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.kaiserv</groupId>
     <artifactId>dyn-proxy</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <properties>
-        <tomcat.version>11.0.0</tomcat.version>
+        <tomcat.version>11.0.1</tomcat.version>
         <logback-classic.version>1.5.12</logback-classic.version>
         <junit.version>4.13.2</junit.version>
 

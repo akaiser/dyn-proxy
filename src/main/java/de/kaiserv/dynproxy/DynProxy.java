@@ -1,6 +1,5 @@
 package de.kaiserv.dynproxy;
 
-import jakarta.servlet.AsyncContext;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,7 +9,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.util.Arrays;
@@ -23,11 +21,11 @@ public class DynProxy extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) {
-        AsyncContext ctx = req.startAsync();
+        var ctx = req.startAsync();
         ctx.start(() -> {
             HttpURLConnection conn = null;
             try {
-                String proxyUrl = new ProxyUrlBuilder(req.getQueryString()).build();
+                var proxyUrl = new ProxyUrlBuilder(req.getQueryString()).get();
                 LOG.info("proxy to: {}", proxyUrl);
 
                 conn = (HttpURLConnection) new URI(proxyUrl).toURL().openConnection();
@@ -48,14 +46,13 @@ public class DynProxy extends HttpServlet {
     }
 
     private void copyRequestHeaders(HttpURLConnection conn, HttpServletRequest req) {
-        Collections.list(req.getHeaderNames()).forEach(name ->
-                conn.setRequestProperty(name, req.getHeader(name))
-        );
+        Collections.list(req.getHeaderNames())
+                .forEach(name -> conn.setRequestProperty(name, req.getHeader(name)));
     }
 
     private void copyResponseHeaders(HttpURLConnection conn, HttpServletResponse resp) {
         conn.getHeaderFields().forEach((field, values) -> {
-            String value = values.getFirst();
+            var value = values.getFirst();
             if (!"chunked".equals(value)) {
                 resp.setHeader(field, value);
             }
@@ -69,23 +66,23 @@ public class DynProxy extends HttpServlet {
             resp.setStatus(500);
         }
 
-        try (InputStream is = conn.getInputStream()) {
+        try (var is = conn.getInputStream()) {
             copyInputStream(is, resp);
         } catch (Exception ex) {
             LOG.warn("Some minor explosion here... {}", ex.toString());
 
-            try (InputStream is = conn.getErrorStream()) {
+            try (var is = conn.getErrorStream()) {
                 copyInputStream(is, resp);
 
                 if (is == null) {
-                    String stackTrace = Arrays.stream(ex.getStackTrace())
+                    var stackTrace = Arrays.stream(ex.getStackTrace())
                             .map(StackTraceElement::toString)
                             .reduce((s1, s2) -> s1.concat("\n").concat(s2))
                             .orElse(ex.getMessage());
 
-                    String error = ex.toString().concat("\n").concat(stackTrace);
+                    var error = ex.toString().concat("\n").concat(stackTrace);
 
-                    try (InputStream errorIs = new ByteArrayInputStream(error.getBytes())) {
+                    try (var errorIs = new ByteArrayInputStream(error.getBytes())) {
                         resp.setContentType("text/plain");
                         copyInputStream(errorIs, resp);
                     }
@@ -96,7 +93,7 @@ public class DynProxy extends HttpServlet {
 
     private void copyInputStream(InputStream is, HttpServletResponse resp) throws Exception {
         if (is != null) {
-            OutputStream out = resp.getOutputStream();
+            var out = resp.getOutputStream();
             int n;
             byte[] buffer = new byte[4096];
             while (-1 != (n = is.read(buffer))) out.write(buffer, 0, n);
