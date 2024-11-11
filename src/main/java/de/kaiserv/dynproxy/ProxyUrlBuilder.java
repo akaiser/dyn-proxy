@@ -25,7 +25,7 @@ final class ProxyUrlBuilder {
                 .collect(Collectors.toMap(parts -> parts[0], parts -> parts[1]));
     }
 
-    public String get() {
+    public String build() {
         var sb = new StringBuilder();
         buildProtocolAndHost(sb);
         buildQueryParams(sb);

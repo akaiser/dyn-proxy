@@ -25,7 +25,7 @@ public class DynProxy extends HttpServlet {
         ctx.start(() -> {
             HttpURLConnection conn = null;
             try {
-                var proxyUrl = new ProxyUrlBuilder(req.getQueryString()).get();
+                var proxyUrl = new ProxyUrlBuilder(req.getQueryString()).build();
                 LOG.info("proxy to: {}", proxyUrl);
 
                 conn = (HttpURLConnection) new URI(proxyUrl).toURL().openConnection();
