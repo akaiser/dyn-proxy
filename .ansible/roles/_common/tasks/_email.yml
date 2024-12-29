@@ -9,5 +9,5 @@
     username: '{{ email_username }}'
     password: '{{ email_password }}'
     to: '{{ email_to }}'
-    subject: '{{ _deploy_app }}: deploy {{ _deploy_status }}'
+    subject: '{{ _deploy_status }} deploy - {{ _deploy_app }}'
     body: '{{ lookup("ansible.builtin.file", local.log_file) }}'

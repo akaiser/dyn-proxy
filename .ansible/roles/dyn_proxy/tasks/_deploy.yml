@@ -18,4 +18,4 @@
       vars:
         _deploy_app: 'DynProxy'
         _deploy_status:
-          '{{ "FAILURE" if _task_failed_message is defined else "SUCCESS" }}'
+          '{{ "🛑" if _task_failed_message is defined else "✅" }}'
