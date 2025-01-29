@@ -1,11 +1,11 @@
 ---
 
 - block:
-    - ansible.builtin.import_tasks: deploy/checkout.yml
-    - ansible.builtin.import_tasks: deploy/package.yml
-    - ansible.builtin.import_tasks: deploy/stop.yml
-    - ansible.builtin.import_tasks: deploy/copy.yml
-    - ansible.builtin.import_tasks: deploy/start.yml
+    - ansible.builtin.import_tasks: _deploy/checkout.yml
+    - ansible.builtin.import_tasks: _deploy/package.yml
+    - ansible.builtin.import_tasks: _deploy/stop.yml
+    - ansible.builtin.import_tasks: _deploy/copy.yml
+    - ansible.builtin.import_tasks: _deploy/start.yml
   rescue:
     - name: Set task failed message
       ansible.builtin.set_fact:
@@ -13,8 +13,8 @@
           Task "{{ ansible_failed_task.name }}" failed with:
           <p style="color:red">{{ ansible_failed_result }}</p>'
   always:
-    - name: Include email task
-      ansible.builtin.include_tasks: roles/_common/tasks/_email.yml
+    - name: Import email task
+      ansible.builtin.import_tasks: roles/_common/tasks/_email.yml
       vars:
         _deploy_app: 'DynProxy'
         _deploy_status:

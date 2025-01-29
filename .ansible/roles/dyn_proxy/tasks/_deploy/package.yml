@@ -1,22 +1,22 @@
 ---
 
-- name: Get Java version
+- name: Java version
   ansible.builtin.command: java --version
   register: _java_version
   changed_when: false
 
-- name: Print Java version
+- name: Java version output
   ansible.builtin.debug:
     var: _java_version.stdout_lines
 
-- name: Get Maven version
+- name: Maven version
   ansible.builtin.command:
     chdir: '{{ dyn_proxy.app.dir }}'
     cmd: ./mvnw --version
   register: _maven_version
   changed_when: false
 
-- name: Print Maven version
+- name: Maven version output
   ansible.builtin.debug:
     var: _maven_version.stdout_lines
 
