@@ -8,11 +8,11 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           repository: akaiser/ansible-rolorama
           path: ansible-rolorama
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           path: dyn-proxy
       - name: Setup SSH
